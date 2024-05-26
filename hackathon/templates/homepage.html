@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GITAM-Bookspace</title>
+    <link rel="stylesheet" href="homestyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    from, 20%, 40%, 60%, 80%, to {
+        animation-timing-function: ease-in-out;
+    }
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10%);
+    }
+    60% {
+        transform: translateY(5%);
+    }
+    80% {
+        transform: translateY(-2.5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations to specific elements */
+.animated-text {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.category-1 {
+    animation: slideIn 1s ease-in-out;
+}
+
+.category-2 {
+    animation: slideIn 1s ease-in-out 0.3s backwards;
+}
+
+.category-3 {
+    animation: slideIn 1s ease-in-out 0.6s backwards;
+}
+
+.category-image img {
+    animation: bounceIn 1s ease-in-out;
+}
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Navigation bar styles */
+.navbar {
+    background-color: #151515;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-links a::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #FF70AB;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::before {
+    width: 100%;
+}
+
+/* Header styles */
+.header {
+    background-color: #C3FF93;
+    padding: 70px 0 70px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.header h1 {
+    font-size: 3em;
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+    color: #333;
+}
+/* Categories section styles */
+.categories {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    border-radius: 10px;
+}
+
+.categories h2 {
+    color: #FF70AB;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.category {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.category:hover {
+    transform: scale(1.05);
+}
+
+.category-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+}
+
+.category:hover .category-image img {
+    transform: scale(1.1);
+}
+
+.category-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.category-content h3 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.category-content p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #FFAF61;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #FF70AB;
+}
+
+
+.footer {
+    background-color: #FFAF61;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+}
+.contact-info {
+    margin-top: 10px; /* Add more space outside the top part of the box */
+}
+
+.contact-info .campus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
+    gap: 20px; /* Adjust the gap value as needed */
+}
+
+.contact-info .campus {
+    background-color: #f5f5f5; /* Add a background color for better visibility */
+    padding: 10px; /* Reduced padding inside each column by 10 pixels */
+}
+
+        /* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    from, 20%, 40%, 60%, 80%, to {
+        animation-timing-function: ease-in-out;
+    }
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10%);
+    }
+    60% {
+        transform: translateY(5%);
+    }
+    80% {
+        transform: translateY(-2.5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations to specific elements */
+.animated-text {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.category-1 {
+    animation: slideIn 1s ease-in-out;
+}
+
+.category-2 {
+    animation: slideIn 1s ease-in-out 0.3s backwards;
+}
+
+.category-3 {
+    animation: slideIn 1s ease-in-out 0.6s backwards;
+}
+
+.category-image img {
+    animation: bounceIn 1s ease-in-out;
+}
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c5efed;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Navigation bar styles */
+.navbar {
+    background-color: #151515;
+    padding: 5px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-links a::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #FF70AB;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::before {
+    width: 100%;
+}
+
+/* Header styles */
+/* Header styles */
+.header {
+    background: url('https://wallpaper.dog/large/10974780.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 100px 0px 50px 50px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 3em;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+    color: white;
+}
+
+.new-line {
+    display: block;
+}
+
+
+/* Categories section styles */
+.categories {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    border-radius: 10px;
+}
+
+.categories h2 {
+    color: #FF70AB;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.category {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.category:hover {
+    transform: scale(1.05);
+}
+
+.category-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+}
+
+.category:hover .category-image img {
+    transform: scale(1.1);
+}
+
+.category-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.category-content h3 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.category-content p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #FFAF61;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #FF70AB;
+}
+
+
+.specontainer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .contact-info {
+            background-color: #fff;
+            padding: 40px 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .contact-info h2 {
+            text-align: center;
+            color: #FFAF61;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        .campus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-left: 10px;
+        }
+
+        .campus {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .campus:hover {
+            transform: translateY(-10px);
+        }
+
+        .campus h3 {
+            color: #FFAF61;
+            margin-bottom: 10px;
+        }
+
+        .campus p {
+            margin: 5px 0;
+        }
+
+        .campus a {
+            color: #FFAF61;
+            text-decoration: none;
+        }
+
+        .campus a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #FFAF61;
+            text-align: center;
+            padding: 10px 0;
+            color: white;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+/* CSS styles for Buy at a Glance section */
+.buy-at-glance {
+    margin-top: 50px;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.product p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.product button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product button:hover {
+    background-color: #0056b3;
+}
+
+/* CSS styles for Buy at a Glance section */
+.buy-at-glance {
+    margin-top: 50px;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative; /* Added position relative for triangle */
+}
+
+.product:before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ff7f00; /* Orange triangle */
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.product p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.product button {
+    padding: 10px 20px;
+    background-color: #ff7f00; /* Orange button */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product button:hover {
+    background-color: #cc6600; /* Darker orange on hover */
+}
+.container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5px;
+        }
+
+
+
+    </style>
+</head> 
+    
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" style="color: white;" class="logo">GITAM-Bookspace</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="#">Browse</a></li>
+                <li><a href="{{ url_for('sell') }}">Sell</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="{{ url_for('profile') }}"><i class="fas fa-user"></i></a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search for books...">
+                <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="animated-text">Welcome to GITAM-Bookspace</h1>
+            <p class="animated-text">Buy and sell books with ease.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="categories">
+            <h2 class="animated-text">Choose a Category</h2>
+            <div class="category-grid">
+                <div class="category category-1">
+                    <div class="category-image">
+                        <img src="{{ url_for('static', filename='banner3.jpg') }}" alt="Class Notes">
+                    </div>
+                    <div class="category-content">
+                        <h3 class="animated-text">Class Notes</h3>
+                        <p class="animated-text">Physical copies of class notes.</p>
+                        <a href="{{ url_for('class_notes') }}" class="btn animated-text">Browse</a>
+                    </div>
+                </div>
+                <div class="category category-2">
+                    <div class="category-image">
+                        <img src="{{ url_for('static', filename='banner.jpg') }}" alt="Textbooks">
+                    </div>
+                    <div class="category-content">
+                        <h3 class="animated-text">New/Used Textbooks</h3>
+                        <p class="animated-text">New and used textbooks for all subjects.</p>
+                        <a href="{{ url_for('new_used_textbooks') }}" class="btn animated-text">Browse</a>
+                    </div>
+                </div>
+                <div class="category category-3">
+                    <div class="category-image">
+                        <img src="{{ url_for('static', filename='banner2.jpg') }}" alt="Story Books">
+                    </div>
+                    <div class="category-content">
+                        <h3 class="animated-text">Used Story Books</h3>
+                        <p class="animated-text">Explore a wide range of used story books.</p>
+                        <a href="{{ url_for('used_story_books') }}" class="btn animated-text">Browse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New "Buy at a Glance" section -->
+    <div class="container">
+        <div class="buy-at-glance">
+            <h2 class="animated-text">Buy at a Glance</h2>
+            <div class="product-grid" id="glance-products">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const productGrid = document.getElementById('glance-products');
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+
+            // Sample data for demonstration
+            const products = [{
+                    name: 'Biology',
+                    description: 'Description: Biology',
+                    author: 'Shankar',
+                    rating: 'Rating: &#9733;&#9733;&#9733;&#9733;&#9734; (4.5 stars)',
+                    price: '$50.00'
+                },
+                {
+                    name: 'History',
+                    description: 'Description: Hilter',
+                    author: 'Shreesh Verma',
+                    rating: 'Rating: &#9733;&#9733;&#9733;&#9733;&#9733; (5.0 stars)',
+                    price: '$100.00'
+                },
+                {
+                    name: 'Game Of Thrones',
+                    description: 'Description: This guy created Elden Ring, GOT, what all can this guy do?',
+                    author: 'George R. R. Martin',
+                    rating: 'Rating: &#9733;&#9733;&#9733;&#9733;&#9734; (4.5 stars)',
+                    price: '$1000.00'
+                },
+                {
+                    name: 'Harry Potter',
+                    description: 'Description: Snape the GOAT, Also got to know recently that the author is female.',
+                    author: 'J K Rowling',
+                    rating: 'Rating: &#9733;&#9733;&#9733;&#9733;&#9733; (5.0 stars)',
+                    price: '$90.00'
+                },
+                {
+                    name: 'Class Notes Product 1',
+                    description: 'Description: These are comprehensive class notes covering all topics.',
+                    author: 'John Doe',
+                    rating: 'Rating: &#9733;&#9733;&#9733;&#9733;&#9734; (4.5 stars)',
+                    price: '$10.00'
+                },
+                {
+                    name: 'Class Notes Product 2',
+                    description: 'Description: Complete class notes with detailed explanations and examples.',
+                    author: 'Jane Smith',
+                    rating: 'Rating: &#9733;&#9733;&#9733;&#9733;&#9733; (5.0 stars)',
+                    price: '$15.00'
+                }
+            ];
+
+            // Function to shuffle array
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            // Function to display products in the grid
+            function displayProducts(filteredProducts) {
+                productGrid.innerHTML = ''; // Clear existing products
+                // Iterate over the products and create HTML elements for each
+                filteredProducts.forEach(product => {
+                    const productHTML = `
+                        <div class="product">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <p>Author: ${product.author}</p>
+                            <p>${product.rating}</p>
+                            <p>Price: ${product.price}</p>
+                        </div>
+                    `;
+                    productGrid.innerHTML += productHTML;
+                });
+            }
+
+            // Initial display of shuffled products
+            displayProducts(shuffle(products).slice(0, 4)); // Limit to 4 products
+
+            // Function to handle search
+            function handleSearch() {
+                const query = searchInput.value.toLowerCase();
+                const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
+                displayProducts(filteredProducts.slice(0, 4)); // Limit to 4 products
+            }
+
+            // Event listener for search button
+            searchButton.addEventListener('click', handleSearch);
+
+            // Optional: Allow search on pressing Enter key
+            searchInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+        });
+    </script>
+
+ <div class="contact-info">
+    <div class="specontainer">
+        <h2>Contact Information</h2>
+        <div class="campus-grid">
+            <div class="campus">
+                <h3>Visakhapatnam Campus</h3>
+                <p>Gandhi Nagar, Rushikonda,<br>Visakhapatnam - 530045<br>Andhra Pradesh, India</p>
+                <p>0891-2840501<br>registrar@gitam.edu</p>
+                <p><a href="#">Contact Visakhapatnam campus</a></p>
+
+            </div>
+            <div class="campus">
+                <h3>Hyderabad Campus</h3>
+                <p>Rudraram, Patancheru mandal,<br>Hyderabad - 502329<br>Telengana, India.</p>
+                <p>08455-221200 / 1 / 2 / 3 / 4</p>
+                <p><a href="#">Contact Hyderabad campus</a></p>
+
+            </div>
+            <div class="campus">
+                <h3>Bengaluru Campus</h3>
+                <p>NH 207, Nagadenehalli,<br>Doddaballapur taluk,<br>Bengaluru - 561203<br>Karnataka, India</p>
+                <p>080-28098000 / 07<br>9108514034, 9108514028</p>
+                <p><a href="#">Contact Bengaluru campus</a></p>
+
+            </div>
+            <div class="campus">
+                <h3>GIMSR Campus</h3>
+                <p>Gandhi Nagar, Rushikonda<br>Visakhapatnam-530045<br>Andhra Pradesh, INDIA.</p>
+                <p>0891-2866 450, 2538 444<br>Casualty/Hospital: 0891-2780 444</p>
+                <p><a href="#">Contact GIMSR campus</a></p>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BookStore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Add the following CSS for search bar styling -->
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 1em;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1em;
+        }
+        
+        .nav-links li {
+            display: inline;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input[type="text"] {
+            padding: 0.5em;
+            border: none;
+            border-radius: 5px;
+            margin-right: 0.5em;
+        }
+        
+        .search-bar button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .search-bar button:hover {
+            background-color: #444;
+        }
+    </style>
+</body>
+</html>
+

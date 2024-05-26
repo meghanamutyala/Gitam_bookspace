@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Include your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
+    <style>
+        /* Reset some default styles */
+body, h1, h2, p, ul, table, td {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-collapse: collapse; /* Ensure table borders collapse */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Navigation bar styles */
+.navbar {
+    background-color: #151515;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.5s ease-in-out;
+    transition: background-color 0.3s;
+}
+
+.navbar.scrolled {
+    background-color: #111;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #FF70AB;
+}
+
+/* Header styles */
+.header {
+    background-color: #FFA500;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 60px; /* Added margin to avoid overlap with navbar */
+}
+
+.header h1 {
+    font-size: 3em;
+    color: #000000;
+}
+
+/* Main content styles */
+.main {
+    padding: 20px;
+}
+
+.category {
+    margin-bottom: 20px;
+}
+
+.shop {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.shop table {
+    width: 100%;
+    border-spacing: 10px; /* Space between table cells */
+}
+
+.product {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product h3 {
+    margin-bottom: 10px;
+    color: #FF70AB;
+}
+
+.product p {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.add-to-cart {
+    background-color: #FFAF61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+    background-color: #FF70AB;
+}
+
+/* Book details styles */
+.book-details {
+    background-color: #FFDB5C;
+    padding: 20px 0;
+}
+
+.book-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.book-cover img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-meta {
+    font-size: 1.1em;
+}
+
+.book-meta h2 {
+    margin-bottom: 10px;
+    color: #FF70AB;
+}
+
+.book-meta p {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Seller info styles */
+.seller-info {
+    background-color: #C3FF93;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.profile-pic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #FFDB5C;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.seller-details {
+    margin-top: 10px;
+}
+
+.seller-details h2 {
+    font-size: 2em;
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.chat-btn {
+    background-color: #FFAF61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-btn:hover {
+    background-color: #FF70AB;
+}
+
+.seller-rating {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #FF70AB;
+}
+
+.rating {
+    font-size: 1.5em;
+    color: gold;
+}
+
+/* Book description styles */
+.book-description {
+    width: 90%;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.book-description h2 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.book-description p {
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Reviews section styles */
+.reviews {
+    width: 90%;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.reviews h2 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.review {
+    width: 90%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.review p {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.review-rating {
+    color: gold;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #FFAF61;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceIn {
+    from, 20%, 40%, 60%, 80%, to {
+        animation-timing-function: ease-in-out;
+    }
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10%);
+    }
+    60% {
+        transform: translateY(5%);
+    }
+    80% {
+        transform: translateY(-2.5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations to specific elements */
+.book-info {
+    animation: slideIn 1s ease-in-out;
+}
+
+.seller-info {
+    animation: bounceIn 1s ease-in-out;
+}
+
+.animated-text {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.category-1 {
+    animation: slideIn 1s ease-in-out;
+}
+
+.category-2 {
+    animation: slideIn 1s ease-in-out 0.3s backwards;
+}
+
+.category-3 {
+    animation: slideIn 1s ease-in-out 0.6s backwards;
+}
+
+.category-image img {
+    animation: bounceIn 1s ease-in-out;
+}
+
+/* Transitions for smoother effects */
+.book-cover img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.book-cover img:hover {
+    transform: scale(1.05);
+}
+
+/* Related books carousel styles */
+.related-books {
+    width: 90%;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.related-books h2 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.carousel {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    width: 150px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.carousel-item p {
+    color: #333;
+    margin-top: 10px;
+}
+
+.carousel-item:hover {
+    transform: scale(1.1);
+}
+
+/* Rating system styles */
+.rate-book {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.rate-book h2 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.stars span {
+    font-size: 2em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.stars span:hover,
+.stars span.selected {
+    color: gold;
+}
+
+.rating-value {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.contact-info .container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.contact-info .campus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
+    gap: 20px; /* Adjust the gap value as needed */
+    margin-left: 10px; /* Added margin-left to move grid to the left */
+}
+
+.contact-info .campus {
+    background-color: #f5f5f5; /* Add a background color for better visibility */
+    padding: 20px; /* Add some padding inside each column */
+}
+
+/* General styles */
+body body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Additional CSS for product table */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    min-width: 400px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+    background-color: #FFDB5C;
+    color: #333;
+    font-weight: bold;
+}
+
+.product {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.product:hover {
+    transform: scale(1.02);
+}
+
+.product h3 {
+    margin-bottom: 10px;
+    color: #FF70AB;
+}
+
+.product p {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.add-to-cart {
+    background-color: #FFAF61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+    background-color: #FF70AB;
+}
+
+.grand-total {
+    font-size: 1.2em;
+    margin-top: 20px;
+    text-align: right;
+    background-color: #FFAF61;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Existing styles */
+...
+
+/* Styles for the search bar */
+.navbar .search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .search-bar input[type="text"] {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.navbar .search-bar button {
+    padding: 8px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navbar .search-bar button i {
+    font-size: 16px;
+}
+
+/* Styles for the product grid */
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product {
+    flex: 0 1 calc(50% - 20px);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+}
+
+.product h3 {
+    margin-top: 0;
+}
+
+.product p {
+    margin: 8px 0;
+}
+
+.product .add-to-cart {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+}
+
+.product .add-to-cart:hover {
+    background-color: #0056b3;
+}
+
+
+/* Add this CSS to adjust the layout */
+.shop {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.product {
+    width: calc(50% - 0.5em); /* Adjust the width to leave space between products */
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Adjust this CSS as needed for product styling */
+.product h3 {
+    margin-top: 0;
+}
+
+.product p {
+    margin: 0.5em 0;
+}
+
+
+
+
+/* Reset some default styles */
+body, h1, h2, p, ul, table, td {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-collapse: collapse; /* Ensure table borders collapse */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Navigation bar styles */
+.navbar {
+    background-color: #151515;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.5s ease-in-out;
+    transition: background-color 0.3s;
+}
+
+.navbar.scrolled {
+    background-color: #111;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #34495e; /* Dark blue hover color */
+}
+
+/* Header styles */
+.header {
+    background-color: #34495e; /* Dark blue header background */
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 60px; /* Added margin to avoid overlap with navbar */
+}
+
+.header h1 {
+    font-size: 3em;
+    color: #FFFFFF; /* Black header text color */
+}
+
+/* Main content styles */
+.main {
+    padding: 20px;
+}
+
+.cart-items {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    width: 80%; /* Set the width to 80% */
+    margin: 0 auto; /* Center the cart items container */
+}
+
+#cart-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+#cart-list li:last-child {
+    border-bottom: none;
+}
+
+.remove-btn {
+    background-color: #34495e; /* Dark blue remove button background */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #64ffda; /* Dark blue hover color */
+}
+
+.grand-total {
+    font-size: 1.2em;
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #34495e; /* Dark blue footer background */
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Include header -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" style="color: white;" class="logo" onclick="location.href='homepage.html'">GITAM-Bookspace</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="#">Browse</a></li>
+                <li><a href="{{ url_for('sell') }}">Sell</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="{{ url_for('profile') }}"><i class="fas fa-user"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <header class="header">
+        <div class="container">
+            <h1 color="white">Your Shopping Cart
+		<i class="fas fa-shopping-cart"></i></h1>
+        </div>
+    </header>
+
+    <!-- Main content of the Cart page -->
+    <div class="main">
+        <div class="container">
+            <div class="cart-items">
+                <h2>Cart Items</h2>
+                <ul id="cart-list">
+
+                    {% for order in orders %}
+                    <li>
+                        <span>{{ order.book_name }}</span>
+                        <span>${{ order.cost }}</span>
+                        <span>Sold by: {{ order.seller_name }} (Contact: {{ order.seller_contact }})</span>
+                         <!-- Remove button can be implemented if needed -->
+                        <button class="remove-btn" onclick="removeItem({{ order.book_id }})">Remove</button>
+                    </li>
+                    
+                    {% endfor %}
+                </ul>
+                <div class="grand-total">
+                    Grand Total: ${{ orders|sum(attribute='cost') }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BookStore. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

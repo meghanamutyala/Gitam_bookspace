@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Bookstore</title>
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.navbar {
+    background-color: #151515;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    color: #FF70AB;
+}
+
+.header {
+    background-color: #FFA500;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.header h1 {
+    font-size: 3em;
+    color: #000000;
+}
+
+.main {
+    padding: 20px;
+}
+
+.contact-info {
+    margin-top: 40px;
+}
+
+.contact-info h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.campus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.campus {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.campus img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    margin-top: 10px;
+    align-self: center;
+}
+
+.campus h3 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.campus p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.campus a {
+    color: #FF70AB;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.campus a:hover {
+    color: #FFAF61;
+}
+
+.additional-contact-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.additional-contact-info h2 {
+    color: #FF70AB;
+    margin-bottom: 10px;
+}
+
+.additional-contact-info p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.footer {
+    background-color: #FFAF61;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+</style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" style="color: white;" class="logo" onclick="location.href='homepage.html'">GITAM-Bookspace</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="#">Browse</a></li>
+                <li><a href="{{ url_for('sell') }}">Sell</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="{{ url_for('profile') }}"><i class="fas fa-user"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>Get in touch with us for any queries or feedback.</p>
+        </div>
+    </header>
+
+    <div class="main">
+        <div class="container">
+            <div class="contact-info">
+                <h2>Our Campuses</h2>
+                <div class="campus-grid">
+                    <div class="campus">
+                        <h3>Visakhapatnam Campus</h3>
+                        <p>Gandhi Nagar, Rushikonda,<br>Visakhapatnam - 530045<br>Andhra Pradesh, India</p>
+                        <p>Phone: 0891-2840501<br>Email: registrar@gitam.edu</p>
+                        <p><a href="#">Get Directions</a></p>
+                        <img src="https://imgs.search.brave.com/jhav13RXbHgaTFTeQZyshpWsNzMYBeG9H99ehEv1-q0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8z/LzM5L0dJVEFNX1Zp/emFnX0NhbXB1cy5q/cGc" alt="Visakhapatnam Campus">
+                    </div>
+                    <div class="campus">
+                        <h3>Hyderabad Campus</h3>
+                        <p>Rudraram, Patancheru mandal,<br>Hyderabad - 502329<br>Telengana, India.</p>
+                        <p>Phone: 08455-221200 / 1 / 2 / 3 / 4</p>
+                        <p><a href="#">Get Directions</a></p>
+                        <img src="https://imgs.search.brave.com/aenFrXh22N2zy_1ngLFS2oM5lEHfXoYQgK8qbDQ9XUo/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy84/LzhjL0dJVEFNX0h5/ZGVyYWJhZF9DYW1w/dXMuanBn" alt="Hyderabad Campus" >
+                    </div>
+                    <div class="campus">
+                        <h3>Bengaluru Campus</h3>
+                        <p>NH 207, Nagadenehalli,<br>Doddaballapur taluk,<br>Bengaluru - 561203<br>Karnataka,
+                            India</p>
+                        <p>Phone: 080-28098000 / 07<br>Mobile: 9108514034, 9108514028</p>
+                        <p><a href="#">Get Directions</a></p>
+                        <img src="https://imgs.search.brave.com/RVU3mPLJMtYb2_t8CDH-01r2ZyKI8nu-AewavzqfgJo/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9l/L2UzL0dJVEFNX0Jh/bmdhbG9yZV9DYW1w/dXMuanBn" alt="Bengaluru Campus" >
+                    </div>
+                    <div class="campus">
+                        <h3>GIMSR Campus</h3>
+                        <p>Gandhi Nagar, Rushikonda<br>Visakhapatnam-530045<br>Andhra Pradesh, INDIA.</p>
+                        <p>Phone: 0891-2866 450, 2538 444<br>Casualty/Hospital: 0891-2780 444</p>
+                        <p><a href="#">Get Directions</a></p>
+                        <img src="https://imgs.search.brave.com/sjFNDQqOzgVm-mY2_eb7avgWoOA6ak1wh-kVeabgVIE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8y/LzIwL0dJTVNSX0Nh/bXB1cy5qcGc" alt="GIMSR Campus" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="additional-contact-info">
+        <div class="container">
+            <h2>Additional Contact Information</h2>
+            <p>Contact: 999999999</p>
+            <p>Email: xyzab@gitam.edu</p>
+            <p>For more information, feel free to reach out to us!</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
